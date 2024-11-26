@@ -1,22 +1,23 @@
-# Prysm
+# Prisma
 
-## Overview
+## Descripción general
 
 {% hint style="info" %}
 [Prysm](https://github.com/prysmaticlabs/prysm) is a Go implementation of Ethereum protocol with a focus on usability, security, and reliability. Prysm is developed by [Prysmatic Labs](https://prysmaticlabs.com), a company with the sole focus on the development of their client. Prysm is written in Go and released under a GPL-3.0 license.
 {% endhint %}
 
-#### Official Links
+#### Enlaces oficiales
 
-| Subject       | Links                                                                                              |
+| Asunto        | Enlaces                                                                                              |
 | ------------- | -------------------------------------------------------------------------------------------------- |
-| Releases      | [https://github.com/prysmaticlabs/prysm/releases](https://github.com/prysmaticlabs/prysm/releases) |
-| Documentation | [https://docs.prylabs.network](https://docs.prylabs.network/)                                      |
-| Website       | [https://prysmaticlabs.com](https://prysmaticlabs.com/)                                            |
+| Lanzamientos  | [https://github.com/prysmaticlabs/prysm/releases](https://github.com/prysmaticlabs/prysm/releases) |
+| Documentación | [https://docs.prylabs.network](https://docs.prylabs.network/)                                      |
+| Sitio web     | [https://prysmaticlabs.com](https://prysmaticlabs.com/)                                            |
 
-### 1. Initial configuration
+### 1. Configuración inicial 
 
-Create a service user for the consensus service, create data directory and assign ownership.
+Cree un usuario de servicio para el servicio de consenso, cree un directorio de datos y asigne
+la propiedad.
 
 ```bash
 sudo adduser --system --no-create-home --group consensus
@@ -24,22 +25,22 @@ sudo mkdir -p /var/lib/prysm/beacon
 sudo chown -R consensus:consensus /var/lib/prysm/beacon
 ```
 
-Install dependencies.
+Instalar dependencias.
 
 ```bash
 sudo apt install curl jq git ccze -y
 ```
 
-### 2. Install Binaries
+### 2. Instalar Binarios
 
-* Downloading binaries is often faster and more convenient.
-* Building from source code can offer better compatibility and is more aligned with the spirit of FOSS (free open source software).
+* Descargar archivos binarios suele ser más rápido y cómodo.
+* Construir a partir del código fuente puede ofrecer una mejor compatibilidad y está más alineado con el espíritu de FOSS (software libre de código abierto).
 
 <details>
 
 <summary>Option 1 - Download binaries</summary>
 
-Run the following to automatically download the latest binaries.
+Ejecute lo siguiente para descargar automáticamente los archivos binarios más recientes.
 
 ```bash
 cd $HOME
@@ -51,7 +52,7 @@ curl -f -L "https://prysmaticlabs.com/releases/${file_validator}" -o validator
 chmod +x beacon-chain validator
 ```
 
-Install the binaries.
+Instalar los binarios.
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo mv beacon-chain validator /usr/local/bin
 </strong></code></pre>
@@ -60,9 +61,9 @@ Install the binaries.
 
 <details>
 
-<summary>Option 2 - Build from source code</summary>
+<summary>Opción 2 - Construir desde el código fuente</summary>
 
-Install Go dependencies
+Instalar dependencias de Go.
 
 ```bash
 wget -O go.tar.gz https://go.dev/dl/go1.22.2.linux-amd64.tar.gz
@@ -71,21 +72,21 @@ echo export PATH=$PATH:/usr/local/go/bin >> $HOME/.bashrc
 source $HOME/.bashrc
 ```
 
-Verify Go is properly installed by checking the version and cleanup files.
+Verifique que Go esté instalado correctamente verificando la versión y los archivos de limpieza.
 
 ```bash
 go version
 rm go.tar.gz
 ```
 
-Install build dependencies.
+Instalar dependencias de compilación.
 
 ```bash
 sudo apt-get update
 sudo apt install build-essential git
 ```
 
-Build the binaries.
+Construye los binarios.
 
 ```bash
 mkdir -p ~/git
@@ -99,7 +100,7 @@ go build -o=./build/beacon-chain ./cmd/beacon-chain
 go build -o=./build/validator ./cmd/validator
 ```
 
-Install the binaries.
+Instalar los binarios.
 
 ```shell
 sudo cp $HOME/git/prysm/build/beacon-chain /usr/local/bin
@@ -108,15 +109,15 @@ sudo cp $HOME/git/prysm/build/validator /usr/local/bin
 
 </details>
 
-### **3. Setup and configure systemd**
+### **3. Instalar y configurar systemd**
 
-Create a **systemd unit file** to define your `consensus.service` configuration.
+Cree un **archivo de unidad systemd** para definir su  `consensus.service` configuración.
 
 ```bash
 sudo nano /etc/systemd/system/consensus.service
 ```
 
-Paste the following configuration into the file.
+Pegue la siguiente configuración en el archivo.
 
 <pre class="language-bash"><code class="lang-bash"><strong>[Unit]
 </strong>Description=Prysm Consensus Layer Client service for Mainnet
@@ -157,38 +158,38 @@ WantedBy=multi-user.target
 --suggested-fee-recipient
 ```
 
-To exit and save, press `Ctrl` + `X`, then `Y`, then `Enter`.
+Para salir y guardar, presione `Ctrl` + `X`, luego `Y`, luego `Enter`.
 
-Run the following to enable auto-start at boot time.
+Ejecute lo siguiente para habilitar el inicio automático en el momento del arranque.
 
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable consensus
 ```
 
-Finally, start your consensus layer client and check it's status.
+Finalmente, inicie su cliente de capa de consenso y verifique su estado.
 
 ```bash
 sudo systemctl start consensus
 sudo systemctl status consensus
 ```
 
-Press `Ctrl` + `C` to exit the status.
+Presione `Ctrl` + `C para salir del estado.
 
-Check your logs to confirm that the consensus clients are up and syncing.
+Verifique sus registros para confirmar que los clientes de consenso estén activos y sincronizados.
 
 ```bash
 sudo journalctl -fu consensus | ccze
 ```
 
-**Example of Synced Consensus Client Logs**
+**Ejemplo de registros de cliente de consenso sincronizados**
 
 ```bash
 "Peer summary" activePeers=69 inbound=0 outbound=69 prefix=p2p
 "Synced new block" block=0xb5ccb2f85... epoch=1837 finalizedEpoch=1838 finalizedRoot=0x1dce0... prefix=blockchain slot=21338 "Finished applying state transition" attestations=128 payloadHash=0x000000000000 prefix=blockchain slot=2138 syncBitsCount=213 txCount=0"terminal difficulty has not been reached yet" latestDifficulty=10000000 prefix=powchain terminalDifficulty=10000000
 ```
 
-### 4. Helpful consensus client commands
+### 4. Comandos útiles del cliente de consenso
 
 {% tabs %}
 {% tab title="View Logs" %}
@@ -196,7 +197,7 @@ sudo journalctl -fu consensus | ccze
 sudo journalctl -fu consensus | ccze
 ```
 
-**Example of Synced Prysm Consensus Client Logs**
+**Ejemplo de registros de cliente de consenso de Prysm sincronizados**
 
 ```bash
 time="2023-02-02 11:21:00" level=info msg="Peer summary" activePeers=35 inbound=10 outbound=25 prefix=p2p
@@ -224,11 +225,11 @@ sudo systemctl status consensus
 {% endtab %}
 
 {% tab title="Reset Database" %}
-Common reasons to reset the database can include:
+Las razones comunes para restablecer la base de datos pueden incluir:
 
-* To reduce disk space usage
-* To recover from a corrupted database due to power outage or hardware failure
-* To upgrade to a new storage format
+* Para reducir el uso de espacio en disco
+* Para recuperarse de una base de datos dañada debido a un corte de energía o una falla de hardware
+* Para actualizar a un nuevo formato de almacenamiento
 
 ```bash
 sudo systemctl stop consensus
@@ -236,13 +237,13 @@ sudo rm -rf /var/lib/prysm/beacon/beaconchaindata
 sudo systemctl restart consensus
 ```
 
-With checkpoint sync enabled, time to re-sync the consensus client should take only a minute or two.
+Con la sincronización de puntos de control habilitada, el tiempo para volver a sincronizar el cliente de consenso debería tomar solo uno o dos minutos.
 {% endtab %}
 {% endtabs %}
 
-Now that your consensus client is configured and started, you have a full node.
+Ahora que su cliente de consenso está configurado e iniciado, tiene un nodo completo.
 
-Proceed to the next step on setting up your validator client, which turns a full node into a staking node.
+Continúe con el siguiente paso para configurar su cliente validador, que convierte un nodo completo en un nodo de participación.
 
 {% hint style="info" %}
 If you wanted to setup a full node, not a staking node, stop here! Congrats on running your own full node! :tada:
