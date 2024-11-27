@@ -3,7 +3,7 @@
 ## Descripción general
 
 {% hint style="info" %}
-[Prysm](https://github.com/prysmaticlabs/prysm) is a Go implementation of Ethereum protocol with a focus on usability, security, and reliability. Prysm is developed by [Prysmatic Labs](https://prysmaticlabs.com), a company with the sole focus on the development of their client. Prysm is written in Go and released under a GPL-3.0 license.
+[Prysm](https://github.com/prysmaticlabs/prysm) es una implementación Go del protocolo Ethereum con un enfoque en usabilidad, seguridad y confiabilidad. Prysm es desarrollado por [Prysmatic Labs](https://prysmaticlabs.com), una empresa cuyo único objetivo es el desarrollo de su cliente. Prysm está escrito en Go y publicado bajo una licencia GPL-3.0.
 {% endhint %}
 
 #### Enlaces oficiales
