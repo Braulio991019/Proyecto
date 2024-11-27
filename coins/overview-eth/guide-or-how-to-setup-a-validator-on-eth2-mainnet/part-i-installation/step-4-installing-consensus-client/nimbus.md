@@ -3,7 +3,7 @@
 ## Descripción general
 
 {% hint style="info" %}
-[Nimbus](https://our.status.im/tag/nimbus/) is a research project and a client implementation for Ethereum designed to perform well on embedded systems and personal mobile devices, including older smartphones with resource-restricted hardware. The Nimbus team are from [Status](https://status.im/about/) the company best known for [their messaging app/wallet/Web3 browser](https://status.im) by the same name. Nimbus (Apache 2) is written in Nim, a language with Python-like syntax that compiles to C.
+[Nimbus](https://our.status.im/tag/nimbus/) es un proyecto de investigación y una implementación de cliente para Ethereum diseñado para funcionar bien en sistemas integrados y dispositivos móviles personales, incluidos teléfonos inteligentes más antiguos con hardware de recursos restringidos. El equipo de Nimbus es de [Status](https://status.im/about/), la empresa más conocida por [su aplicación de mensajería/billetera/navegador Web3](https://status.im) del mismo nombre. Nimbus (Apache 2) está escrito en Nim, un lenguaje con sintaxis similar a Python que se compila en C.
 {% endhint %}
 
 {% hint style="info" %}
